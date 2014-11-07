@@ -1,0 +1,13 @@
+{
+    "name": "plati-tech/simple-mvc",
+    "description": "A Simple MVC framework with component style",
+    "require": {
+        "php": ">=5.3.0",
+        "doctrine/orm": "2.4",
+        "symfony/yaml": "2.*",
+        "phpunit/phpunit": "4.2.*"
+    },
+    "autoload": {
+        "psr-0": {"": "src/"}
+    }
+}
