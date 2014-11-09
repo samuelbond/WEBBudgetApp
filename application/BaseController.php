@@ -23,7 +23,34 @@ Abstract class BaseController {
      */
     public function __construct($registry)
     {
+        @session_start();
         $this->registry = $registry;
+    }
+
+    protected function startUserSession($userId, $userName, $userEmail)
+    {
+        $_SESSION['userId'] = $userId;
+        $_SESSION['userName'] = $userName;
+        $_SESSION['userEmail'] = $userEmail;
+    }
+
+    protected function endUserSession()
+    {
+        if(isset($_SESSION['userId']))
+        {
+            unset($_SESSION['userId']);
+            unset($_SESSION['userName']);
+            unset($_SESSION['userEmail']);
+            session_destroy();
+        }
+    }
+
+    protected function getUserSessionData()
+    {
+        $name = ((isset($_SESSION['userName'])) ? $_SESSION['userName'] : "Guest");
+        $id = ((isset($_SESSION['userId'])) ? $_SESSION['userId'] : "guestId");
+        $email = ((isset($_SESSION['userEmail'])) ? $_SESSION['userEmail'] : "guestEmail");
+        return array($id, $name, $email);
     }
 
     /**
