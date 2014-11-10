@@ -7,8 +7,8 @@
     <meta content='lab2023' name='author'>
     <meta content='' name='description'>
     <meta content='' name='keywords'>
-    <link href="/view/assets/stylesheets/application-a07755f5.css" rel="stylesheet" type="text/css" /><link href="//netdna.bootstrapcdn.com/font-awesome/3.2.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
-    <link href="/view/assets/images/favicon.ico" rel="icon" type="image/ico" />
+    <link href="view/assets/stylesheets/application-a07755f5.css" rel="stylesheet" type="text/css" /><link href="//netdna.bootstrapcdn.com/font-awesome/3.2.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <link href="view/assets/images/favicon.ico" rel="icon" type="image/ico" />
     
   </head>
   <body class='login'>
@@ -17,7 +17,7 @@
         <div class='col-lg-12'>
           <div class='brand text-center'>
             <h1>
-             <img src="/view/images/logo.png" />
+             <img src="view/images/logo.png" />
             </h1>
           </div>
         </div>

@@ -16,7 +16,7 @@ class BudgetApp extends \component\budgetapp\BudgetApp{
 
     protected $curlWrapper;
 
-    protected $apiRootLink = "http://localhost:8080/BudgetNew_war_exploded/webresources/co.uk.platitech.budget.";
+    protected $apiRootLink = "http://localhost:8080/BudgetAPI_war_exploded/webresources/co.uk.platitech.budget.";
 
     protected $currentLink = "";
 
@@ -36,6 +36,11 @@ class BudgetApp extends \component\budgetapp\BudgetApp{
     {
         $this->currentLink = $this->apiRootLink."users/login";
       return $this->curlWrapper->Post($this->currentLink, array("email" => $email, "password" => $password));
+    }
+
+    public function getUserAccounts($userId)
+    {
+        $this->currentLink = $this->apiRootLink."accounts/";
     }
 
 

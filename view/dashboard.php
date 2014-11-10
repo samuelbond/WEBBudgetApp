@@ -6,9 +6,9 @@
     <title>Dashboard</title>
     <meta content='' name='description'>
     <meta content='' name='keywords'>
-    <link href="/view/assets/stylesheets/application-a07755f5.css" rel="stylesheet" type="text/css" />
+    <link href="view/assets/stylesheets/application-a07755f5.css" rel="stylesheet" type="text/css" />
       <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
-    <link href="/view/assets/images/favicon.ico" rel="icon" type="image/ico" />
+    <link href="view/assets/images/favicon.ico" rel="icon" type="image/ico" />
     <style>
         @import url("http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900,400italic");
         @import url("//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.css");
@@ -203,7 +203,7 @@
     <!-- Navbar -->
     <div class='navbar navbar-default' id='navbar'>
       <a class='navbar-brand' href='#'>
-          <img src="/view/images/logo.png" />
+          <img src="view/images/logo.png" />
       </a>
       <ul class='nav navbar-nav pull-right'>
         <li class='dropdown'>
@@ -402,7 +402,7 @@
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js" type="text/javascript">
     </script><script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js" type="text/javascript"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js" type="text/javascript"></script>
-    <script src="/view/assets/javascripts/application-985b892b.js" type="text/javascript"></script>
+    <script src="view/assets/javascripts/application-985b892b.js" type="text/javascript"></script>
     <!-- Google Analytics -->
     <script>
       var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']];

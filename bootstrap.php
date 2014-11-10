@@ -26,15 +26,20 @@ define('_SITE_PATH', $sitepath);
  */
 $bootstrap = _SITE_PATH."autoloader".DIRECTORY_SEPARATOR.'autoloader.php';
 
+
 require_once $bootstrap;
 
 spl_autoload_register("\autoloader\Autoloader::load");
 
+
+
 //Composer autoloader
 $composerAutoloader = _SITE_PATH."vendor".DIRECTORY_SEPARATOR."autoload.php";
 
-require_once $composerAutoloader;
-
+if(file_exists($composerAutoloader))
+{
+    require_once $composerAutoloader;
+}
 
 
 /**
