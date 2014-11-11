@@ -40,7 +40,30 @@ class BudgetApp extends \component\budgetapp\BudgetApp{
 
     public function getUserAccounts($userId)
     {
-        $this->currentLink = $this->apiRootLink."accounts/";
+        $this->currentLink = $this->apiRootLink."accounts/".$userId;
+        return $this->curlWrapper->Get($this->currentLink);
+    }
+
+    public function createNewBankAccount($userId, $accountName, $accountNumber, $startingBalance, $currency, $country)
+    {
+        $this->currentLink = $this->apiRootLink."accounts/create";
+       var_dump($this->curlWrapper->Post($this->currentLink,
+           array(
+               "account_name" => $accountName,
+               "account_number" => $accountNumber,
+               "user_id" => $userId,
+               "start_balance" => $startingBalance,
+               "currency_code" => $currency,
+               "currency_country" => $country
+           )));
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getLastError()
+    {
+        return (($this->curlWrapper->isError()) ? $this->curlWrapper->getErrorMessage() : null);
     }
 
 

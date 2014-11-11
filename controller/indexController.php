@@ -14,11 +14,15 @@ use component\budgetapp\BudgetApp;
 
 class indexController extends BaseController{
 
+    private $countries = array("GBP" => "UK", "USD" => "USA", "EUR" => "EURO ZONE");
+
     public function index(){
 
-        if(isset($_POST['email']))
+        $budgetComp = (new BudgetApp())->loadComponent();
+
+        if(isset($_POST['password']))
         {
-            $budgetComp = (new BudgetApp())->loadComponent();
+
             $email = $_POST['email'];
             $passowrd = $_POST['password'];
             $response = $budgetComp->loginUser( $email, $passowrd);
@@ -30,6 +34,16 @@ class indexController extends BaseController{
                 $this->registry->template->fullname = $name;
                 $this->registry->template->userId = $id;
                 $this->registry->template->email = $email;
+                $acct = $budgetComp->getUserAccounts($id);
+                if($acct['status'] == "success")
+                {
+                    $this->registry->template->accounts = $acct['list'];
+                }
+                $error = $budgetComp->getLastError();
+                if(!is_null($error))
+                {
+                    $this->registry->template->erroralert = $error;
+                }
                 $this->registry->template->loadView("dashboard");
                 return;
             }
@@ -51,6 +65,30 @@ class indexController extends BaseController{
             $this->registry->template->fullname = $name;
             $this->registry->template->userId = $id;
             $this->registry->template->email = $email;
+            $acct = $budgetComp->getUserAccounts($id);
+
+            if(isset($_POST['acc_name']))
+            {
+                $acctName = $_POST['acc_name'];
+                $acctNumber = $_POST['acc_number'];
+                $startBalance = ($_POST['balance'] * 100);
+                $currency = $_POST['currency'];
+                $country = $this->countries[$currency];
+                $budgetComp->createNewBankAccount($id, $acctName, $acctNumber, $startBalance, $currency, $country);
+                echo $error = $budgetComp->getLastError();
+                return;
+            }
+
+            if($acct['status'] == "success")
+            {
+                $this->registry->template->accounts = $acct['list'];
+            }
+            $error = $budgetComp->getLastError();
+            if(!is_null($error))
+            {
+                $this->registry->template->erroralert = $error;
+            }
+
             $this->registry->template->loadView("dashboard");
             return;
         }

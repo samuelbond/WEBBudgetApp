@@ -198,6 +198,8 @@
                 padding: 10px 0px 9px;
             }
     </style>
+
+
   </head>
   <body class='main page'>
     <!-- Navbar -->
@@ -354,36 +356,42 @@
           </div>
           <div class='panel-body'>
             <div class='page-header'>
-              <h4><a><i style="color:green;" class="icon-plus"></i> Add New Account</a></h4>
+              <h4><a data-toggle="modal" data-target="#addAccount"><i style="color:green;" class="icon-plus"></i> Add New Account</a></h4>
             </div>
-            <div class='row'>
+
+              <?php if(!isset($accounts))echo "<i style='color:#333333;'>No Accounts Found</i>"; ?>
+
+              <?php
+              foreach($accounts as $account)
+              {
+                  echo '<div class="row">
                   <div class="container">
                       <div class="row">
                           <div class="[ col-xs-12 col-sm-offset-2 col-sm-10 ]">
                               <ul class="event-list">
                                   <li>
                                       <time datetime="2014-07-20 0000">
-                                          <span class="day">GBP</span>
+                                          <span class="day">'.$account['currency'].'</span>
 
-                                          <span class="month">UK</span>
+                                          <span class="month">'.$account['country'].'</span>
                                           <!--
                                           <span class="year">2014</span>
                                           <span class="time">12:00 AM</span>
                                           -->
                                       </time>
                                       <div class="info">
-                                          <h2 class="title">Samuel Personal</h2>
-                                          <p class="desc"><i>30056788</i></p>
+                                          <h2 class="title">'.$account['account_name'].'</h2>
+                                          <p class="desc"><i>'.$account['account_number'].'</i></p>
                                           <ul>
-                                              <li style="width:50%;"><a href="#website"<span class="icon-chevron-left"></span><span class="icon-chevron-left"></span> Last Balance: £300.00</a></li>
-                                              <li style="width:60%;"><span class="fa fa-money"></span> Current Balance: £100.00</li>
+                                              <li style="width:50%;"><a href="#website"<span class="icon-chevron-left"></span><span class="icon-chevron-left"></span> Last Balance: '.$account['currency'].' '.(($account['last_balance'] == 0) ? "0.00" : $account['last_balance'] ).'</a></li>
+                                              <li style="width:60%;"><span class="fa fa-money"></span> Current Balance: '.$account['currency'].' '.(($account['balance'] == 0) ? "0.00" : $account['balance'] ).'</li>
                                           </ul>
                                       </div>
                                       <div class="social">
                                           <ul>
-                                              <li class="facebook" style="width:33%;" data-toggle='tooltip' title='add a new transaction'><a href="#facebook"><span class="icon-plus"></span></a></li>
-                                              <li class="twitter" style="width:34%;" data-toggle='tooltip' title='remove account'><a href="#twitter"><span class="icon-minus"></span></a></li>
-                                              <li class="google-plus" style="width:33%;" data-toggle='tooltip' title='show all transactions'><a href="#google-plus"><span class="icon-list"></span></a></li>
+                                              <li class="facebook" style="width:33%;" data-toggle="tooltip" title="add a new transaction"><a href="#facebook"><span class="icon-plus"></span></a></li>
+                                              <li class="twitter" style="width:34%;" data-toggle="tooltip" title="remove account"><a href="#twitter"><span class="icon-minus"></span></a></li>
+                                              <li class="google-plus" style="width:33%;" data-toggle="tooltip" title="show all transactions"><a href="#google-plus"><span class="icon-list"></span></a></li>
                                           </ul>
                                       </div>
                                   </li>
@@ -391,12 +399,92 @@
                           </div>
                       </div>
                   </div>
-              </div>
+              </div>';
+              }
+              ?>
 
           </div>
         </div>
       </div>
     </div>
+
+
+    <!-- Additional -->
+    <!-- Modal -->
+    <div class="modal fade" id="addAccount" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Create a new account</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" role="form" method="post" action="index">
+                        <div class="form-group">
+                            <label for="inputEmail3" class="col-sm-2 control-label">Account Name</label>
+                            <div class="col-sm-6">
+                                <input type="text" name="acc_name" class="form-control" id="inputEmail3" placeholder="Account Name">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputEmail3" class="col-sm-2 control-label">Account Number</label>
+                            <div class="col-sm-6">
+                                <input type="text" name="acc_number" class="form-control" id="inputEmail3" placeholder="Account Number">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputEmail3" class="col-sm-2 control-label">Country</label>
+                            <div class="col-sm-6">
+                                <select class="form-control" name="currency">
+                                    <option value="GBP">United Kingdom (GBP)</option>
+                                    <option value="USD">United States (USD)</option>
+                                    <option value="EUR">Euro Zone (EUR)</option>
+
+                                </select>
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputEmail3" class="col-sm-2 control-label">Starting Balance</label>
+                            <div class="col-sm-6">
+                                <input type="text" name="balance" class="form-control" id="inputEmail3" placeholder="0.00">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button type="submit" class="btn btn-primary btn-lg">Create Account</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="myModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title">Action Status</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="alert alert-danger" role="alert">
+                        <?php
+                        if(isset($erroralert))echo $erroralert;
+                        ?></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+
     <!-- Footer -->
     <!-- Javascripts -->
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js" type="text/javascript">
@@ -410,5 +498,18 @@
       g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
       s.parentNode.insertBefore(g,s)}(document,'script'));
     </script>
+
+    <?php
+    if(isset($erroralert))
+    {
+        ?>
+        <script type="text/javascript">
+            $(window).load(function(){
+                $('#myModal').modal('show');
+            });
+        </script>
+    <?php
+    }
+    ?>
   </body>
 </html>
