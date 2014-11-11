@@ -45,7 +45,6 @@ class CurlWrapper {
         if($dataType === "JSON")
         {
             $json = json_encode($data);
-            echo $json;
             curl_setopt($this->curl, CURLOPT_POSTFIELDS, $json);
             curl_setopt($this->curl, CURLOPT_HTTPHEADER, array(
                     'Content-Type: application/json',

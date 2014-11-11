@@ -75,8 +75,8 @@ class indexController extends BaseController{
                 $currency = $_POST['currency'];
                 $country = $this->countries[$currency];
                 $budgetComp->createNewBankAccount($id, $acctName, $acctNumber, $startBalance, $currency, $country);
-                echo $error = $budgetComp->getLastError();
-                return;
+                //echo $error = $budgetComp->getLastError();
+                //return;
             }
 
             if($acct['status'] == "success")
