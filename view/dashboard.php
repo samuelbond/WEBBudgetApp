@@ -208,6 +208,7 @@
           <img src="view/images/logo.png" />
       </a>
       <ul class='nav navbar-nav pull-right'>
+          <!--
         <li class='dropdown'>
           <a class='dropdown-toggle' data-toggle='dropdown' href='#'>
             <i class='icon-envelope'></i>
@@ -230,6 +231,7 @@
             </li>
           </ul>
         </li>
+        -->
         <li>
           <a href='#'>
             <i class='icon-cog'></i>
@@ -266,7 +268,7 @@
         <ul id='dock'>
           <li class='active launcher'>
             <i class='icon-dashboard'></i>
-            <a href="/view/dashboard.html">Dashboard</a>
+            <a href="index">Dashboard</a>
           </li>
           <li class='launcher'>
             <i class='icon-file-text-alt'></i>
@@ -338,15 +340,38 @@
       </section>
       <!-- Content -->
       <div id='content'>
+
+          <?php
+
+          if(isset($success))
+          {
+              echo '<div class="alert alert-success" role="alert">'.$success.'</div>';
+          }
+
+         /*
+          if(isset($error))
+          {
+              echo '<div class="alert alert-danger" role="alert">'.$error.'</div>';
+          }
+          */
+
+          if(isset($info))
+          {
+              echo '<div class="alert alert-info" role="alert">'.$info.'</div>';
+          }
+
+
+          ?>
+
         <div class='panel panel-default'>
           <div class='panel-heading'>
             <i class='icon-info-sign icon-large'></i>
            Welcome!
             <div class='panel-tools'>
               <div class='btn-group'>
-                <a class='btn' href='#'>
+                <a class='btn' href='index'>
                   <i class='icon-refresh'></i>
-                  Refresh statics
+                  Refresh
                 </a>
                 <a class='btn' data-toggle='toolbar-tooltip' href='#' title='Toggle'>
                   <i class='icon-chevron-down'></i>
@@ -383,14 +408,14 @@
                                           <h2 class="title">'.$account['account_name'].'</h2>
                                           <p class="desc"><i>'.$account['account_number'].'</i></p>
                                           <ul>
-                                              <li style="width:50%;"><a href="#website"<span class="icon-chevron-left"></span><span class="icon-chevron-left"></span> Last Balance: '.$account['currency'].' '.(($account['last_balance'] == 0) ? "0.00" : $account['last_balance'] ).'</a></li>
-                                              <li style="width:60%;"><span class="fa fa-money"></span> Current Balance: '.$account['currency'].' '.(($account['balance'] == 0) ? "0.00" : $account['balance'] ).'</li>
+                                              <li style="width:50%;"><a href="#website"<span class="icon-chevron-left"></span><span class="icon-chevron-left"></span> Last Balance: '.$account['currency'].' '.(($account['last_balance'] == 0) ? "0.00" : number_format(($account['last_balance']/100) , 2)).'</a></li>
+                                              <li style="width:60%;"><span class="fa fa-money"></span> Current Balance: '.$account['currency'].' '.(($account['balance'] == 0) ? "0.00" : number_format(($account['balance']/100), 2) ).'</li>
                                           </ul>
                                       </div>
                                       <div class="social">
                                           <ul>
                                               <li class="facebook" style="width:33%;" data-toggle="tooltip" title="add a new transaction"><a href="#facebook"><span class="icon-plus"></span></a></li>
-                                              <li class="twitter" style="width:34%;" data-toggle="tooltip" title="remove account"><a href="#twitter"><span class="icon-minus"></span></a></li>
+                                              <li class="twitter" style="width:34%;" data-toggle="tooltip" title="remove account"><a href="index?remove='.$account['account_id'].'"><span class="icon-minus"></span></a></li>
                                               <li class="google-plus" style="width:33%;" data-toggle="tooltip" title="show all transactions"><a href="#google-plus"><span class="icon-list"></span></a></li>
                                           </ul>
                                       </div>
@@ -439,7 +464,8 @@
                                     <option value="GBP">United Kingdom (GBP)</option>
                                     <option value="USD">United States (USD)</option>
                                     <option value="EUR">Euro Zone (EUR)</option>
-
+                                    <option value="HUF">Hungary (HUF)</option>
+                                    <option value="PLN"> Poland (PLN)</option>
                                 </select>
 
                             </div>

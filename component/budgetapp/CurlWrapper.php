@@ -55,7 +55,7 @@ class CurlWrapper {
         {
             curl_setopt($this->curl, CURLOPT_POSTFIELDS, $data);
         }
-
+        //echo $json;
         return (($dataType == "JSON") ? $this->jsonParser($this->curlExecute($this->curl)) : $this->curlExecute($this->curl));
     }
 

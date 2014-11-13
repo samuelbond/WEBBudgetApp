@@ -47,15 +47,25 @@ class BudgetApp extends \component\budgetapp\BudgetApp{
     public function createNewBankAccount($userId, $accountName, $accountNumber, $startingBalance, $currency, $country)
     {
         $this->currentLink = $this->apiRootLink."accounts/create";
-       var_dump($this->curlWrapper->Post($this->currentLink,
+       return $this->curlWrapper->Post($this->currentLink,
            array(
                "account_name" => $accountName,
                "account_number" => $accountNumber,
                "user_id" => $userId,
-               "start_balance" => $startingBalance,
+               "start_balance" => intval($startingBalance),
                "currency_code" => $currency,
                "currency_country" => $country
-           )));
+           ));
+    }
+
+
+    public function deleteBankAccount($accountId)
+    {
+        $this->currentLink = $this->apiRootLink."accounts/delete";
+        return $this->curlWrapper->Post($this->currentLink,
+            array(
+                "account_id" => $accountId
+            ));
     }
 
     /**
