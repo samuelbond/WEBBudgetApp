@@ -1,343 +1,195 @@
-<!DOCTYPE html>
-<html class='no-js' lang='en'>
-  <head>
-    <meta charset='utf-8'>
-    <meta content='IE=edge,chrome=1' http-equiv='X-UA-Compatible'>
-    <title>Dashboard</title>
-    <meta content='' name='description'>
-    <meta content='' name='keywords'>
-    <link href="view/assets/stylesheets/application-a07755f5.css" rel="stylesheet" type="text/css" />
-      <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
-    <link href="view/assets/images/favicon.ico" rel="icon" type="image/ico" />
-    <style>
-        @import url("http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900,400italic");
-        @import url("//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.css");
+<?php include_once "header.php" ?>
+
+<style>
+    @import url("http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900,400italic");
+    @import url("//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.css");
 
 
-        .event-list {
-            list-style: none;
-            font-family: 'Lato', sans-serif;
-            margin: 0px;
-            padding: 0px;
-        }
+    .event-list {
+        list-style: none;
+        font-family: 'Lato', sans-serif;
+        margin: 0px;
+        padding: 0px;
+    }
+    .event-list > li {
+        background-color: rgb(255, 255, 255);
+        box-shadow: 0px 0px 5px rgb(51, 51, 51);
+        box-shadow: 0px 0px 5px rgba(51, 51, 51, 0.7);
+        padding: 0px;
+        margin: 0px 0px 20px;
+    }
+    .event-list > li > time {
+        display: inline-block;
+        width: 100%;
+        color: rgb(255, 255, 255);
+        background-color: rgb(197, 44, 102);
+        padding: 5px;
+        text-align: center;
+        text-transform: uppercase;
+    }
+    .event-list > li:nth-child(even) > time {
+        background-color: rgb(165, 82, 167);
+    }
+    .event-list > li > time > span {
+        display: none;
+    }
+    .event-list > li > time > .day {
+        display: block;
+        font-size: 56pt;
+        font-weight: 100;
+        line-height: 1;
+    }
+    .event-list > li time > .month {
+        display: block;
+        font-size: 24pt;
+        font-weight: 900;
+        line-height: 1;
+    }
+    .event-list > li > img {
+        width: 100%;
+    }
+    .event-list > li > .info {
+        padding-top: 5px;
+        text-align: center;
+    }
+    .event-list > li > .info > .title {
+        font-size: 17pt;
+        font-weight: 700;
+        margin: 0px;
+    }
+    .event-list > li > .info > .desc {
+        font-size: 13pt;
+        font-weight: 300;
+        margin: 0px;
+    }
+    .event-list > li > .info > ul,
+    .event-list > li > .social > ul {
+        display: table;
+        list-style: none;
+        margin: 10px 0px 0px;
+        padding: 0px;
+        width: 100%;
+        text-align: center;
+    }
+    .event-list > li > .social > ul {
+        margin: 0px;
+    }
+    .event-list > li > .info > ul > li,
+    .event-list > li > .social > ul > li {
+        display: table-cell;
+        cursor: pointer;
+        color: rgb(30, 30, 30);
+        font-size: 11pt;
+        font-weight: 300;
+        padding: 3px 0px;
+    }
+    .event-list > li > .info > ul > li > a {
+        display: block;
+        width: 100%;
+        color: rgb(30, 30, 30);
+        text-decoration: none;
+    }
+    .event-list > li > .social > ul > li {
+        padding: 0px;
+    }
+    .event-list > li > .social > ul > li > a {
+        padding: 3px 0px;
+    }
+    .event-list > li > .info > ul > li:hover,
+    .event-list > li > .social > ul > li:hover {
+        color: rgb(30, 30, 30);
+        background-color: rgb(200, 200, 200);
+    }
+    .facebook a,
+    .twitter a,
+    .google-plus a {
+        display: block;
+        width: 100%;
+        color: green !important;
+    }
+    .twitter a {
+        color: red !important;
+    }
+    .google-plus a {
+        color: rgb(221, 75, 57) !important;
+    }
+    .facebook:hover a {
+        color: #ffffff !important;
+        background-color: green !important;
+    }
+    .twitter:hover a {
+        color: #ffffff !important;
+        background-color: red !important;
+    }
+    .google-plus:hover a {
+        color: rgb(255, 255, 255) !important;
+        background-color: rgb(221, 75, 57) !important;
+    }
+
+    @media (min-width: 768px) {
         .event-list > li {
-            background-color: rgb(255, 255, 255);
-            box-shadow: 0px 0px 5px rgb(51, 51, 51);
-            box-shadow: 0px 0px 5px rgba(51, 51, 51, 0.7);
+            position: relative;
+            display: block;
+            width: 100%;
+            height: 120px;
             padding: 0px;
-            margin: 0px 0px 20px;
         }
-        .event-list > li > time {
+        .event-list > li > time,
+        .event-list > li > img  {
             display: inline-block;
-            width: 100%;
-            color: rgb(255, 255, 255);
-            background-color: rgb(197, 44, 102);
-            padding: 5px;
-            text-align: center;
-            text-transform: uppercase;
         }
-        .event-list > li:nth-child(even) > time {
-            background-color: rgb(165, 82, 167);
-        }
-        .event-list > li > time > span {
-            display: none;
-        }
-        .event-list > li > time > .day {
-            display: block;
-            font-size: 56pt;
-            font-weight: 100;
-            line-height: 1;
-        }
-        .event-list > li time > .month {
-            display: block;
-            font-size: 24pt;
-            font-weight: 900;
-            line-height: 1;
-        }
+        .event-list > li > time,
         .event-list > li > img {
-            width: 100%;
+            width: 300px;
+            float: left;
         }
         .event-list > li > .info {
-            padding-top: 5px;
-            text-align: center;
+            background-color: rgb(245, 245, 245);
+            overflow: hidden;
         }
-        .event-list > li > .info > .title {
-            font-size: 17pt;
-            font-weight: 700;
-            margin: 0px;
-        }
-        .event-list > li > .info > .desc {
-            font-size: 13pt;
-            font-weight: 300;
-            margin: 0px;
-        }
-        .event-list > li > .info > ul,
-        .event-list > li > .social > ul {
-            display: table;
-            list-style: none;
-            margin: 10px 0px 0px;
+        .event-list > li > time,
+        .event-list > li > img {
+            width: 200px;
+            height: 120px;
             padding: 0px;
-            width: 100%;
-            text-align: center;
-        }
-        .event-list > li > .social > ul {
             margin: 0px;
         }
-        .event-list > li > .info > ul > li,
-        .event-list > li > .social > ul > li {
-            display: table-cell;
-            cursor: pointer;
-            color: rgb(30, 30, 30);
-            font-size: 11pt;
-            font-weight: 300;
-            padding: 3px 0px;
+        .event-list > li > .info {
+            position: relative;
+            height: 120px;
+            text-align: left;
+            padding-right: 40px;
         }
-        .event-list > li > .info > ul > li > a {
+        .event-list > li > .info > .title,
+        .event-list > li > .info > .desc {
+            padding: 0px 10px;
+        }
+        .event-list > li > .info > ul {
+            position: absolute;
+            left: 0px;
+            bottom: 0px;
+        }
+        .event-list > li > .social {
+            position: absolute;
+            top: 0px;
+            right: 0px;
             display: block;
-            width: 100%;
-            color: rgb(30, 30, 30);
-            text-decoration: none;
+            width: 40px;
+        }
+        .event-list > li > .social > ul {
+            border-left: 1px solid rgb(230, 230, 230);
         }
         .event-list > li > .social > ul > li {
+            display: block;
             padding: 0px;
         }
         .event-list > li > .social > ul > li > a {
-            padding: 3px 0px;
-        }
-        .event-list > li > .info > ul > li:hover,
-        .event-list > li > .social > ul > li:hover {
-            color: rgb(30, 30, 30);
-            background-color: rgb(200, 200, 200);
-        }
-        .facebook a,
-        .twitter a,
-        .google-plus a {
             display: block;
-            width: 100%;
-            color: green !important;
+            width: 40px;
+            padding: 10px 0px 9px;
         }
-        .twitter a {
-            color: red !important;
-        }
-        .google-plus a {
-            color: rgb(221, 75, 57) !important;
-        }
-        .facebook:hover a {
-            color: rgb(255, 255, 255) !important;
-            background-color: rgb(75, 110, 168) !important;
-        }
-        .twitter:hover a {
-            color: rgb(255, 255, 255) !important;
-            background-color: rgb(79, 213, 248) !important;
-        }
-        .google-plus:hover a {
-            color: rgb(255, 255, 255) !important;
-            background-color: rgb(221, 75, 57) !important;
-        }
+</style>
 
-        @media (min-width: 768px) {
-            .event-list > li {
-                position: relative;
-                display: block;
-                width: 100%;
-                height: 120px;
-                padding: 0px;
-            }
-            .event-list > li > time,
-            .event-list > li > img  {
-                display: inline-block;
-            }
-            .event-list > li > time,
-            .event-list > li > img {
-                width: 300px;
-                float: left;
-            }
-            .event-list > li > .info {
-                background-color: rgb(245, 245, 245);
-                overflow: hidden;
-            }
-            .event-list > li > time,
-            .event-list > li > img {
-                width: 200px;
-                height: 120px;
-                padding: 0px;
-                margin: 0px;
-            }
-            .event-list > li > .info {
-                position: relative;
-                height: 120px;
-                text-align: left;
-                padding-right: 40px;
-            }
-            .event-list > li > .info > .title,
-            .event-list > li > .info > .desc {
-                padding: 0px 10px;
-            }
-            .event-list > li > .info > ul {
-                position: absolute;
-                left: 0px;
-                bottom: 0px;
-            }
-            .event-list > li > .social {
-                position: absolute;
-                top: 0px;
-                right: 0px;
-                display: block;
-                width: 40px;
-            }
-            .event-list > li > .social > ul {
-                border-left: 1px solid rgb(230, 230, 230);
-            }
-            .event-list > li > .social > ul > li {
-                display: block;
-                padding: 0px;
-            }
-            .event-list > li > .social > ul > li > a {
-                display: block;
-                width: 40px;
-                padding: 10px 0px 9px;
-            }
-    </style>
-
-
-  </head>
-  <body class='main page'>
-    <!-- Navbar -->
-    <div class='navbar navbar-default' id='navbar'>
-      <a class='navbar-brand' href='#'>
-          <img src="view/images/logo.png" />
-      </a>
-      <ul class='nav navbar-nav pull-right'>
-          <!--
-        <li class='dropdown'>
-          <a class='dropdown-toggle' data-toggle='dropdown' href='#'>
-            <i class='icon-envelope'></i>
-            Messages
-            <span class='badge'>5</span>
-            <b class='caret'></b>
-          </a>
-          <ul class='dropdown-menu'>
-            <li>
-              <a href='#'>New message</a>
-            </li>
-            <li>
-              <a href='#'>Inbox</a>
-            </li>
-            <li>
-              <a href='#'>Outbox</a>
-            </li>
-            <li>
-              <a href='#'>Trash</a>
-            </li>
-          </ul>
-        </li>
-        -->
-        <li>
-          <a href='#'>
-            <i class='icon-cog'></i>
-            Settings
-          </a>
-        </li>
-        <li class='dropdown user'>
-          <a class='dropdown-toggle' data-toggle='dropdown' href='#'>
-            <i class='icon-user'></i>
-            <strong>
-                <?php
-                    echo ((isset($fullname)) ? $fullname : "");
-                ?>
-            </strong>
-            <img class="img-rounded" src="http://placehold.it/20x20/ccc/777" />
-            <b class='caret'></b>
-          </a>
-          <ul class='dropdown-menu'>
-            <li>
-              <a href='#'>Edit Profile</a>
-            </li>
-            <li class='divider'></li>
-            <li>
-              <a href="index?logout=true">Sign out</a>
-            </li>
-          </ul>
-        </li>
-      </ul>
-    </div>
-    <div id='wrapper'>
-      <!-- Sidebar -->
-      <section id='sidebar'>
-        <i class='icon-align-justify icon-large' id='toggle'></i>
-        <ul id='dock'>
-          <li class='active launcher'>
-            <i class='icon-dashboard'></i>
-            <a href="index">Dashboard</a>
-          </li>
-          <li class='launcher'>
-            <i class='icon-file-text-alt'></i>
-            <a href="/view/forms.htmlFramework/view/forms.html">Forms</a>
-          </li>
-          <li class='launcher'>
-            <i class='icon-table'></i>
-            <a href="/view/tables.htmlramework/view/tables.html">Tables</a>
-          </li>
-          <li class='launcher dropdown hover'>
-            <i class='icon-flag'></i>
-            <a href='#'>Reports</a>
-            <ul class='dropdown-menu'>
-              <li class='dropdown-header'>Launcher description</li>
-              <li>
-                <a href='#'>Action</a>
-              </li>
-              <li>
-                <a href='#'>Another action</a>
-              </li>
-              <li>
-                <a href='#'>Something else here</a>
-              </li>
-            </ul>
-          </li>
-          <li class='launcher'>
-            <i class='icon-bookmark'></i>
-            <a href='#'>Bookmarks</a>
-          </li>
-          <li class='launcher'>
-            <i class='icon-cloud'></i>
-            <a href='#'>Backup</a>
-          </li>
-          <li class='launcher'>
-            <i class='icon-bug'></i>
-            <a href='#'>Feedback</a>
-          </li>
-        </ul>
-
-      </section>
-      <!-- Tools -->
-      <section id='tools'>
-        <ul class='breadcrumb' id='breadcrumb'>
-          <li class='title'>Dashboard</li>
-        </ul>
-        <div id='toolbar'>
-          <div class='btn-group'>
-            <a class='btn' data-toggle='toolbar-tooltip' href='#' title='Building'>
-              <i class='icon-building'></i>
-            </a>
-            <a class='btn' data-toggle='toolbar-tooltip' href='#' title='Laptop'>
-              <i class='icon-laptop'></i>
-            </a>
-            <a class='btn' data-toggle='toolbar-tooltip' href='#' title='Calendar'>
-              <i class='icon-calendar'></i>
-              <span class='badge'>3</span>
-            </a>
-            <a class='btn' data-toggle='toolbar-tooltip' href='#' title='Lemon'>
-              <i class='icon-lemon'></i>
-            </a>
-          </div>
-          <div class='label label-danger'>
-            Danger
-          </div>
-          <div class='label label-info'>
-            Info
-          </div>
-        </div>
-      </section>
       <!-- Content -->
       <div id='content'>
 
@@ -414,9 +266,9 @@
                                       </div>
                                       <div class="social">
                                           <ul>
-                                              <li class="facebook" style="width:33%;" data-toggle="tooltip" title="add a new transaction"><a href="#facebook"><span class="icon-plus"></span></a></li>
-                                              <li class="twitter" style="width:34%;" data-toggle="tooltip" title="remove account"><a href="index?remove='.$account['account_id'].'"><span class="icon-minus"></span></a></li>
-                                              <li class="google-plus" style="width:33%;" data-toggle="tooltip" title="show all transactions"><a href="#google-plus"><span class="icon-list"></span></a></li>
+                                              <li class="facebook" style="width:33%;" data-toggle="tooltip" title="add a new transaction"><a href="#" data-toggle="modal" data-target="#addTransaction" onclick="assignAccountId('.$account['account_id'].')"><span class="icon-plus"></span></a></li>
+                                              <li class="twitter" style="width:34%;" data-toggle="tooltip" title="remove account"><a href="index?remove='.$account['account_id'].'" onclick="return confirm(\'Are you sure, you want to delete this account and all its transactions?\nThis action cannot be undone\')"><span class="icon-minus"></span></a></li>
+                                              <li class="google-plus" style="width:33%;" data-toggle="tooltip" title="show all transactions"><a href="transaction?show='.$account['account_id'].'"><span class="icon-list"></span></a></li>
                                           </ul>
                                       </div>
                                   </li>
@@ -448,7 +300,7 @@
                         <div class="form-group">
                             <label for="inputEmail3" class="col-sm-2 control-label">Account Name</label>
                             <div class="col-sm-6">
-                                <input type="text" name="acc_name" class="form-control" id="inputEmail3" placeholder="Account Name">
+                                <input type="text" name="acc_name"  class="form-control" id="inputEmail3" placeholder="Account Name">
                             </div>
                         </div>
                         <div class="form-group">
@@ -490,6 +342,61 @@
         </div>
     </div>
 
+
+<!-- new transaction -->
+<div class="modal fade" id="addTransaction" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="myModalLabel">Create a new Transaction</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" role="form" method="post" action="transaction">
+                    <input name="account" id="accountIdTrx" value="" type="hidden" />
+                    <div class="form-group">
+                        <label for="inputEmail3" class="col-sm-2 control-label">Transaction</label>
+                        <div class="col-sm-6">
+                            <input type="text" name="acc_name" class="form-control" id="inputEmail3" placeholder="Transaction Name">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputEmail3" class="col-sm-2 control-label">Transaction Amount</label>
+                        <div class="col-sm-6">
+                            <input type="text" name="acc_number" class="form-control" id="inputEmail3" placeholder="Transaction Amount">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputEmail3" class="col-sm-2 control-label">Transaction Type</label>
+                        <div class="col-sm-6">
+                            <select class="form-control" name="types">
+                                <option value="debit">DEBIT</option>
+                                <option value="credit">CREDIT</option>
+                            </select>
+
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputEmail3" class="col-sm-2 control-label">Transaction Date</label>
+                        <div class="col-sm-6">
+                            <input type="text" name="balance" class="form-control" id="datepicker" placeholder="2014-01-31">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <button type="submit" class="btn btn-primary btn-lg">Create Transaction</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
     <div class="modal fade" id="myModal">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -517,6 +424,8 @@
     </script><script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js" type="text/javascript"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js" type="text/javascript"></script>
     <script src="view/assets/javascripts/application-985b892b.js" type="text/javascript"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
+
     <!-- Google Analytics -->
     <script>
       var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']];
@@ -537,5 +446,13 @@
     <?php
     }
     ?>
+<script>
+    $(function() {
+        $( "#datepicker" ).datepicker();
+    });
+</script>
+<script>function assignAccountId(value) {
+        document.getElementById('accountIdTrx').value = value;
+    }</script>
   </body>
 </html>
