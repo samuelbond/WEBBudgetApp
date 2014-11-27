@@ -39,6 +39,7 @@ class indexController extends BaseController{
                 if($acct['status'] == "success")
                 {
                     $this->registry->template->accounts = $acct['list'];
+                    $this->registry->template->currency = $this;
                 }
                 $error = $budgetComp->getLastError();
                 if(!is_null($error))
@@ -100,6 +101,7 @@ class indexController extends BaseController{
             if($acct['status'] == "success")
             {
                 $this->registry->template->accounts = $acct['list'];
+                $this->registry->template->currency = $this;
             }
             $gError = $budgetComp->getLastError();
 
@@ -130,7 +132,7 @@ class indexController extends BaseController{
                 }
 
             }
-            elseif($_GET['remove'])
+            elseif(isset($_GET['remove']))
             {
                 if($delete['status'] == "success")
                 {
@@ -149,14 +151,23 @@ class indexController extends BaseController{
         $this->registry->template->loadView("index");
     }
 
-    /**
-     * @return $this|\component\budgetapp\v1\BudgetApp
-     */
-    public function getNewBudgetComponent()
+    public function getCurrencyCode($code)
     {
-        return (new BudgetApp())->loadComponent();
-    }
+        if(strtoupper($code) === "GBP")
+        {
+            $code = "<span class='icon-gbp'></span>";
+        }
+        elseif(strtoupper($code) === "USD")
+        {
+            $code = "<span class='icon-usd'></span>";
+        }
+        elseif(strtoupper($code) === "EUR")
+        {
+            $code = "<span class='icon-euro'></span>";
+        }
 
+        return $code;
+    }
 
 
 

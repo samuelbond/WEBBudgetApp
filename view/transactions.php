@@ -5,7 +5,7 @@
 <div class='panel panel-default grid'>
 <div class='panel-heading'>
     <i class='icon-table icon-large'></i>
-    Default Table
+    Transactions
     <div class='panel-tools'>
         <div class='btn-group'>
             <a class='btn' href='#'>
@@ -20,359 +20,140 @@
                 <i class='icon-refresh'></i>
             </a>
         </div>
-        <div class='badge'>3 records</div>
+        <div class='badge'><?php if(isset($transactions))echo count($transactions)." Transaction(s)"; else echo "0 Transactions"; ?></div>
     </div>
 </div>
 <div class='panel-body filters'>
     <div class='row'>
         <div class='col-md-9'>
-            Add your custom filters here...
-        </div>
-        <div class='col-md-3'>
-            <div class='input-group'>
-                <input class='form-control' placeholder='Quick search...' type='text'>
-                  <span class='input-group-btn'>
-                    <button class='btn' type='button'>
-                        <i class='icon-search'></i>
+            <?php
+            if(isset($success))
+            {
+                echo '<div class="alert alert-success" role="alert">
+                    <button type="button" class="close" data-dismiss="alert">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                    </button>'.$success.'</div>';
+            }
+
+            if(isset($error))
+            {
+                echo '<div class="alert alert-danger" role="alert">
+                    <button type="button" class="close" data-dismiss="alert">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
                     </button>
-                  </span>
+                        '.$error.'</div>';
+            }
+
+            if(isset($info))
+            {
+                echo '<div class="alert alert-info" role="alert">
+                    <button type="button" class="close" data-dismiss="alert">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                    </button>
+                    '.$info.'</div>';
+            }
+
+            ?>
+        </div>
+        <?php
+
+        if(isset($transactions)) {
+
+        ?>
+
+        <div class='col-md-3'>
+            <div class='pull-right'>
+      <span style="color:#0088CC;">
+                    <b>Last Balance : <?php if(isset($lastBalance)) echo $currency." ".$lastBalance; else echo "0.00"; ?></b>
+                </span>
             </div>
         </div>
+
+
     </div>
 </div>
-<table class='table'>
+
+
+
+ <table class='table'>
     <thead>
     <tr>
-        <th>#</th>
-        <th>First Name</th>
-        <th>Last Name</th>
-        <th>Username</th>
+        <th>Transaction Id</th>
+        <th>Transaction Name</th>
+        <th>Amount</th>
+        <th>Transaction Date</th>
+        <th>Type</th>
         <th class='actions'>
-            Actions
+
         </th>
     </tr>
     </thead>
     <tbody>
-    <tr class='success'>
-        <td>1</td>
-        <td>Mark</td>
-        <td>Otto</td>
-        <td>@mdo</td>
-        <td class='action'>
-            <a class='btn btn-success' data-toggle='tooltip' href='#' title='Zoom'>
-                <i class='icon-zoom-in'></i>
-            </a>
-            <a class='btn btn-info' href='#'>
-                <i class='icon-edit'></i>
-            </a>
-            <a class='btn btn-danger' href='#'>
-                <i class='icon-trash'></i>
-            </a>
-        </td>
-    </tr>
-    <tr class='danger'>
-        <td>2</td>
-        <td>Jacob</td>
-        <td>Thornton</td>
-        <td>@fat</td>
-        <td class='action'>
-            <a class='btn btn-success' data-toggle='tooltip' href='#' title='Zoom'>
-                <i class='icon-zoom-in'></i>
-            </a>
-            <a class='btn btn-info' href='#'>
-                <i class='icon-edit'></i>
-            </a>
-            <a class='btn btn-danger' href='#'>
-                <i class='icon-trash'></i>
+
+    <?php
+    foreach ($transactions as $transaction) {
+        echo
+            '<tr class="' . (($transaction['transaction_type'] == 'CREDIT') ? 'success' : 'danger') . '">
+        <td><b><i>' . $transaction['transaction_id'] . '</i></b></td>
+        <td><b>' . $transaction['transaction_name'] . '</b></td>
+        <td><b>' . $currency . number_format(($transaction['transaction_amount'] / 100), 2) . '</b></td>
+        <td><b>' . $transaction['transaction_date'] . '</b></td>
+        <td><b>' . $transaction['transaction_type'] . '</b></td>
+        <td class="action">
+            <a class="btn btn-danger" href="#">
+                <i class="icon-trash">
+                </i>
             </a>
         </td>
-    </tr>
-    <tr class='warning'>
-        <td>3</td>
-        <td>Larry</td>
-        <td>the Bird</td>
-        <td>@twitter</td>
-        <td class='action'>
-            <a class='btn btn-success' data-toggle='tooltip' href='#' title='Zoom'>
-                <i class='icon-zoom-in'></i>
-            </a>
-            <a class='btn btn-info' href='#'>
-                <i class='icon-edit'></i>
-            </a>
-            <a class='btn btn-danger' href='#'>
-                <i class='icon-trash'></i>
-            </a>
-        </td>
-    </tr>
-    <tr class='active'>
-        <td>4</td>
-        <td>Mark</td>
-        <td>Otto</td>
-        <td>@mdo</td>
-        <td class='action'>
-            <a class='btn btn-success' data-toggle='tooltip' href='#' title='Zoom'>
-                <i class='icon-zoom-in'></i>
-            </a>
-            <a class='btn btn-info' href='#'>
-                <i class='icon-edit'></i>
-            </a>
-            <a class='btn btn-danger' href='#'>
-                <i class='icon-trash'></i>
-            </a>
-        </td>
-    </tr>
-    <tr class='disabled'>
-        <td>5</td>
-        <td>Jacob</td>
-        <td>Thornton</td>
-        <td>@fat</td>
-        <td class='action'>
-            <a class='btn btn-success' data-toggle='tooltip' href='#' title='Zoom'>
-                <i class='icon-zoom-in'></i>
-            </a>
-            <a class='btn btn-info' href='#'>
-                <i class='icon-edit'></i>
-            </a>
-            <a class='btn btn-danger' href='#'>
-                <i class='icon-trash'></i>
-            </a>
-        </td>
-    </tr>
-    <tr>
-        <td>6</td>
-        <td>Larry</td>
-        <td>the Bird</td>
-        <td>@twitter</td>
-        <td class='action'>
-            <a class='btn btn-success' data-toggle='tooltip' href='#' title='Zoom'>
-                <i class='icon-zoom-in'></i>
-            </a>
-            <a class='btn btn-info' href='#'>
-                <i class='icon-edit'></i>
-            </a>
-            <a class='btn btn-danger' href='#'>
-                <i class='icon-trash'></i>
-            </a>
-        </td>
-    </tr>
-    <tr>
-        <td>7</td>
-        <td>Jacob</td>
-        <td>Thornton</td>
-        <td>@fat</td>
-        <td class='action'>
-            <a class='btn btn-success' data-toggle='tooltip' href='#' title='Zoom'>
-                <i class='icon-zoom-in'></i>
-            </a>
-            <a class='btn btn-info' href='#'>
-                <i class='icon-edit'></i>
-            </a>
-            <a class='btn btn-danger' href='#'>
-                <i class='icon-trash'></i>
-            </a>
-        </td>
-    </tr>
-    <tr>
-        <td>8</td>
-        <td>Larry</td>
-        <td>the Bird</td>
-        <td>@twitter</td>
-        <td class='action'>
-            <a class='btn btn-success' data-toggle='tooltip' href='#' title='Zoom'>
-                <i class='icon-zoom-in'></i>
-            </a>
-            <a class='btn btn-info' href='#'>
-                <i class='icon-edit'></i>
-            </a>
-            <a class='btn btn-danger' href='#'>
-                <i class='icon-trash'></i>
-            </a>
-        </td>
-    </tr>
-    <tr>
-        <td>9</td>
-        <td>Mark</td>
-        <td>Otto</td>
-        <td>@mdo</td>
-        <td class='action'>
-            <a class='btn btn-success' data-toggle='tooltip' href='#' title='Zoom'>
-                <i class='icon-zoom-in'></i>
-            </a>
-            <a class='btn btn-info' href='#'>
-                <i class='icon-edit'></i>
-            </a>
-            <a class='btn btn-danger' href='#'>
-                <i class='icon-trash'></i>
-            </a>
-        </td>
-    </tr>
-    <tr>
-        <td>10</td>
-        <td>Jacob</td>
-        <td>Thornton</td>
-        <td>@fat</td>
-        <td class='action'>
-            <a class='btn btn-success' data-toggle='tooltip' href='#' title='Zoom'>
-                <i class='icon-zoom-in'></i>
-            </a>
-            <a class='btn btn-info' href='#'>
-                <i class='icon-edit'></i>
-            </a>
-            <a class='btn btn-danger' href='#'>
-                <i class='icon-trash'></i>
-            </a>
-        </td>
-    </tr>
+        </tr>';
+    }
+
+
+    ?>
+
+
     </tbody>
 </table>
+
 <div class='panel-footer'>
     <ul class='pagination pagination-sm'>
+        <?php if($currentPage > 1){ ?>
         <li>
-            <a href='#'>«</a>
+            <a href='transaction?show=<?php echo $accountId."&page=".($currentPage - 1)?>'>«</a>
         </li>
-        <li class='active'>
-            <a href='#'>1</a>
-        </li>
+        <?php }?>
+        <?php
+
+        for($i = 1; $i < $totalPages; $i++)
+        {
+            echo '
+                <li class="'.(($currentPage == $i) ? 'active' : '').'">
+                    <a href="transaction?show='.$accountId.'&page='.$i.'">'.$i.'</a>
+                </li>';
+        }
+
+        ?>
+        <?php if($currentPage < $totalPages){ ?>
         <li>
-            <a href='#'>2</a>
+            <a href='transaction?show=<?php echo $accountId."&page=".($currentPage + 1)?>'>»</a>
         </li>
-        <li>
-            <a href='#'>3</a>
-        </li>
-        <li>
-            <a href='#'>4</a>
-        </li>
-        <li>
-            <a href='#'>5</a>
-        </li>
-        <li>
-            <a href='#'>6</a>
-        </li>
-        <li>
-            <a href='#'>7</a>
-        </li>
-        <li>
-            <a href='#'>8</a>
-        </li>
-        <li>
-            <a href='#'>»</a>
-        </li>
+        <?php }?>
     </ul>
     <div class='pull-right'>
-        Showing 1 to 10 of 32 entries
+      <span style="<?php if(isset($currentBalance) && $currentBalance < 0) echo "color:red;"; else echo "color:green;"; ?>">
+                    <i><b>Current Balance : <?php if(isset($currentBalance)) echo $currency." ".$currentBalance; else echo "0.00"; ?></b></i>
+                </span>
     </div>
 </div>
+     <?php
+     }
+    ?>
 </div>
-<div class='panel panel-default grid'>
-    <div class='panel-heading'>
-        <i class='icon-table icon-large'></i>
-        Padding Table
-    </div>
-    <table class='table'>
-        <thead>
-        <tr>
-            <th>#</th>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Username</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-            <td>1</td>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-        </tr>
-        <tr>
-            <td>2</td>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>@fat</td>
-        </tr>
-        <tr>
-            <td>3</td>
-            <td>Larry</td>
-            <td>the Bird</td>
-            <td>@twitter</td>
-        </tr>
-        </tbody>
-    </table>
-</div>
-<div class='panel panel-default grid'>
-    <div class='panel-heading'>
-        <i class='icon-table icon-large'></i>
-        Bordered Table
-    </div>
-    <div class='panel-body'>
-        <table class='table table-bordered'>
-            <thead>
-            <tr>
-                <th>#</th>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th>Username</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td>1</td>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-            </tr>
-            <tr>
-                <td>2</td>
-                <td>Jacob</td>
-                <td>Thornton</td>
-                <td>@fat</td>
-            </tr>
-            <tr>
-                <td>3</td>
-                <td>Larry</td>
-                <td>the Bird</td>
-                <td>@twitter</td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-</div>
-<div class='panel panel-default grid'>
-    <div class='panel-heading'>
-        <i class='icon-table icon-large'></i>
-        Condensed Table
-    </div>
-    <table class='table table-condensed'>
-        <thead>
-        <tr>
-            <th>#</th>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Username</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-            <td>1</td>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-        </tr>
-        <tr>
-            <td>2</td>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>@fat</td>
-        </tr>
-        <tr>
-            <td>3</td>
-            <td>Larry</td>
-            <td>the Bird</td>
-            <td>@twitter</td>
-        </tr>
-        </tbody>
-    </table>
-</div>
+
+
 </div>
 </div>
 <!-- Footer -->
@@ -382,6 +163,7 @@
 </script><script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js" type="text/javascript"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js" type="text/javascript"></script>
 <script src="view/assets/javascripts/application-985b892b.js" type="text/javascript"></script>
+
 <!-- Google Analytics -->
 <script>
     var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']];

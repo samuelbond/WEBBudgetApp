@@ -10,8 +10,6 @@
     <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
     <link href="view/assets/images/favicon.ico" rel="icon" type="image/ico" />
 
-
-
 </head>
 <body class='main page'>
 <!-- Navbar -->
@@ -83,9 +81,10 @@
                 <a href="index">Dashboard</a>
             </li>
             <li class='launcher'>
-                <i class='icon-file-text-alt'></i>
-                <a href="transactions">Transactions</a>
+                <i class='icon-table'></i>
+                <a href="transaction">Transactions</a>
             </li>
+            <!--
             <li class='launcher'>
                 <i class='icon-table'></i>
                 <a href="/view/tables.htmlramework/view/tables.html">Tables</a>
@@ -118,6 +117,7 @@
                 <i class='icon-bug'></i>
                 <a href='#'>Feedback</a>
             </li>
+            -->
         </ul>
 
     </section>

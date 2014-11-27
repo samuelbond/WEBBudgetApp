@@ -260,8 +260,8 @@
                                           <h2 class="title">'.$account['account_name'].'</h2>
                                           <p class="desc"><i>'.$account['account_number'].'</i></p>
                                           <ul>
-                                              <li style="width:50%;"><a href="#website"<span class="icon-chevron-left"></span><span class="icon-chevron-left"></span> Last Balance: '.$account['currency'].' '.(($account['last_balance'] == 0) ? "0.00" : number_format(($account['last_balance']/100) , 2)).'</a></li>
-                                              <li style="width:60%;"><span class="fa fa-money"></span> Current Balance: '.$account['currency'].' '.(($account['balance'] == 0) ? "0.00" : number_format(($account['balance']/100), 2) ).'</li>
+                                              <li style="width:50%;"><a href="#website"<span class="icon-chevron-left"></span><span class="icon-chevron-left"></span> Last Balance: '.$currency->getCurrencyCode($account['currency']).' '.(($account['last_balance'] == 0) ? "0.00" : number_format(($account['last_balance']/100) , 2)).'</a></li>
+                                              <li style="width:60%;"><span class="fa fa-money"></span> Current Balance: '.$currency->getCurrencyCode($account['currency']).' '.(($account['balance'] == 0) ? "0.00" : number_format(($account['balance']/100), 2) ).'</li>
                                           </ul>
                                       </div>
                                       <div class="social">
@@ -287,7 +287,7 @@
 
 
     <!-- Additional -->
-    <!-- Modal -->
+    <!-- add new account modal -->
     <div class="modal fade" id="addAccount" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -343,7 +343,7 @@
     </div>
 
 
-<!-- new transaction -->
+<!-- new transaction modal -->
 <div class="modal fade" id="addTransaction" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -357,21 +357,21 @@
                     <div class="form-group">
                         <label for="inputEmail3" class="col-sm-2 control-label">Transaction</label>
                         <div class="col-sm-6">
-                            <input type="text" name="acc_name" class="form-control" id="inputEmail3" placeholder="Transaction Name">
+                            <input type="text" name="trx_name" class="form-control" id="inputEmail3" placeholder="Transaction Name">
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="inputEmail3" class="col-sm-2 control-label">Transaction Amount</label>
                         <div class="col-sm-6">
-                            <input type="text" name="acc_number" class="form-control" id="inputEmail3" placeholder="Transaction Amount">
+                            <input type="text" name="trx_amount" class="form-control" id="inputEmail3" placeholder="Transaction Amount">
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="inputEmail3" class="col-sm-2 control-label">Transaction Type</label>
                         <div class="col-sm-6">
                             <select class="form-control" name="types">
-                                <option value="debit">DEBIT</option>
-                                <option value="credit">CREDIT</option>
+                                <option value="DEBIT">DEBIT</option>
+                                <option value="CREDIT">CREDIT</option>
                             </select>
 
                         </div>
@@ -379,7 +379,7 @@
                     <div class="form-group">
                         <label for="inputEmail3" class="col-sm-2 control-label">Transaction Date</label>
                         <div class="col-sm-6">
-                            <input type="text" name="balance" class="form-control" id="datepicker" placeholder="2014-01-31">
+                            <input type="text" name="trx_date" class="form-control" id="datepicker" placeholder="2014-01-31">
                         </div>
                     </div>
                     <div class="form-group">
@@ -396,7 +396,7 @@
     </div>
 </div>
 
-
+<!-- error alert modal -->
     <div class="modal fade" id="myModal">
         <div class="modal-dialog">
             <div class="modal-content">

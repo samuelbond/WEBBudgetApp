@@ -16,7 +16,7 @@ class BudgetApp extends \component\budgetapp\BudgetApp{
 
     protected $curlWrapper;
 
-    protected $apiRootLink = "http://localhost:8080/BudgetAPI_war_exploded/webresources/co.uk.platitech.budget.";
+    protected $apiRootLink = "http://localhost:8080/BudgetNew_war_exploded/webresources/co.uk.platitech.budget.";
 
     protected $currentLink = "";
 
@@ -36,6 +36,26 @@ class BudgetApp extends \component\budgetapp\BudgetApp{
     {
         $this->currentLink = $this->apiRootLink."users/login";
       return $this->curlWrapper->Post($this->currentLink, array("email" => $email, "password" => $password));
+    }
+
+    public function getAccountTransaction($userId, $accountId)
+    {
+        $this->currentLink = $this->apiRootLink."accounts/transaction";
+        return $this->curlWrapper->Post($this->currentLink, array("account_id" => $accountId, "user_id" => $userId));
+    }
+
+
+    public function addNewTransaction($userId, $accountId, $transactionName, $transactionAmount, $transactionType, $transactionDate)
+    {
+        $this->currentLink = $this->apiRootLink."accounts/transaction/add";
+        return $this->curlWrapper->Post($this->currentLink, array(
+            "account_id" => $accountId,
+            "user_id" => $userId,
+            "trx_name" => $transactionName,
+            "trx_amount" => $transactionAmount,
+            "type" => $transactionType,
+            "trx_date" => $transactionDate
+            ));
     }
 
     public function getUserAccounts($userId)

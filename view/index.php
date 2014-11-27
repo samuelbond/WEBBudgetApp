@@ -27,19 +27,32 @@
 
           if(isset($success))
           {
-              echo '<div class="alert alert-success" role="alert">'.$success.'</div>';
+              echo '<div class="alert alert-success" role="alert">
+                    <button type="button" class="close" data-dismiss="alert">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                    </button>'.$success.'</div>';
           }
 
           if(isset($error))
           {
-              echo '<div class="alert alert-danger" role="alert">'.$error.'</div>';
+              echo '<div class="alert alert-danger" role="alert">
+                    <button type="button" class="close" data-dismiss="alert">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                    </button>
+                        '.$error.'</div>';
           }
 
           if(isset($info))
           {
-              echo '<div class="alert alert-info" role="alert">'.$info.'</div>';
+              echo '<div class="alert alert-info" role="alert">
+                    <button type="button" class="close" data-dismiss="alert">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                    </button>
+                    '.$info.'</div>';
           }
-
 
           ?>
         <div class='col-lg-12'>

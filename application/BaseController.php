@@ -9,6 +9,7 @@
  */
 
 namespace application;
+use component\budgetapp\BudgetApp;
 
 /**
  * Class BaseController
@@ -51,6 +52,15 @@ Abstract class BaseController {
         $id = ((isset($_SESSION['userId'])) ? $_SESSION['userId'] : "guestId");
         $email = ((isset($_SESSION['userEmail'])) ? $_SESSION['userEmail'] : "guestEmail");
         return array($id, $name, $email);
+    }
+
+
+    /**
+     * @return $this|\component\budgetapp\v1\BudgetApp
+     */
+    public function getNewBudgetComponent()
+    {
+        return (new BudgetApp())->loadComponent();
     }
 
     /**
