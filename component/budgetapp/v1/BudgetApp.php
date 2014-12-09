@@ -16,7 +16,7 @@ class BudgetApp extends \component\budgetapp\BudgetApp{
 
     protected $curlWrapper;
 
-    protected $apiRootLink = "http://localhost:8080/BudgetNew_war_exploded/webresources/co.uk.platitech.budget.";
+    protected $apiRootLink = "http://localhost:8080/BudgetAPI_war_exploded/webresources/co.uk.platitech.budget.";
 
     protected $currentLink = "";
 
@@ -38,24 +38,41 @@ class BudgetApp extends \component\budgetapp\BudgetApp{
       return $this->curlWrapper->Post($this->currentLink, array("email" => $email, "password" => $password));
     }
 
-    public function getAccountTransaction($userId, $accountId)
+    public function getAccountTransaction($userId, $accountId, $fetchBudget = null)
     {
         $this->currentLink = $this->apiRootLink."accounts/transaction";
-        return $this->curlWrapper->Post($this->currentLink, array("account_id" => $accountId, "user_id" => $userId));
+        return $this->curlWrapper->Post($this->currentLink,
+            (!(is_null($fetchBudget)) ?  array(
+                "account_id" => $accountId,
+                "user_id" => $userId,
+                "budget" => $fetchBudget
+            ) :  array(
+                "account_id" => $accountId,
+                "user_id" => $userId
+            ))
+        );
     }
 
 
-    public function addNewTransaction($userId, $accountId, $transactionName, $transactionAmount, $transactionType, $transactionDate)
+    public function addNewTransaction($userId, $accountId, $transactionName, $transactionAmount, $transactionType, $transactionDate, $budget = null)
     {
         $this->currentLink = $this->apiRootLink."accounts/transaction/add";
-        return $this->curlWrapper->Post($this->currentLink, array(
+        $data = array(
             "account_id" => $accountId,
             "user_id" => $userId,
             "trx_name" => $transactionName,
             "trx_amount" => $transactionAmount,
             "type" => $transactionType,
-            "trx_date" => $transactionDate
-            ));
+            "trx_date" => $transactionDate,
+            "transaction_type" => ((is_null($budget)) ? "account" : "budget")
+        );
+
+        if(!is_null($budget))
+        {
+            $data['budget_id'] = $budget;
+        }
+
+        return $this->curlWrapper->Post($this->currentLink, $data);
     }
 
     public function getUserAccounts($userId)
@@ -85,6 +102,28 @@ class BudgetApp extends \component\budgetapp\BudgetApp{
         return $this->curlWrapper->Post($this->currentLink,
             array(
                 "account_id" => $accountId
+            ));
+    }
+
+    public function createNewBudget($accountId, $userId, $budgetName, $budgetDescription, $budgetMaxAmount)
+    {
+        $this->currentLink = $this->apiRootLink."accounts/create/budget";
+        return $this->curlWrapper->Post($this->currentLink,
+            array(
+                "account_id" => $accountId,
+                "user_id" => $userId,
+                "budget_name" => $budgetName,
+                "budget_description" => $budgetDescription,
+                "budget_amount" => $budgetMaxAmount
+            ));
+    }
+
+    public function getAllUserBudget($userId)
+    {
+        $this->currentLink = $this->apiRootLink."accounts/budgets";
+        return $this->curlWrapper->Post($this->currentLink,
+            array(
+                "user_id" => $userId
             ));
     }
 

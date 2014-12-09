@@ -252,12 +252,18 @@
 
                                           <span class="month">'.$account['country'].'</span>
                                           <!--
-                                          <span class="year">2014</span>
+                                          <span class="year" data-toggle="tooltip" title="add a new budget" ><a href="#" data-toggle="modal" data-target="#addBudget" onclick="assignAccountId('.$account['account_id'].')"><span class="icon-plus"></span></a></span>
                                           <span class="time">12:00 AM</span>
                                           -->
                                       </time>
                                       <div class="info">
-                                          <h2 class="title">'.$account['account_name'].'</h2>
+                                          <h2 class="title">'.$account['account_name'].'
+                                            <span>
+                                                <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#addBudget" onclick="assignAccountId('.$account['account_id'].')">
+                                                   Budget <span class="icon-plus"></span>
+                                                </a>
+                                            </span>
+                                          </h2>
                                           <p class="desc"><i>'.$account['account_number'].'</i></p>
                                           <ul>
                                               <li style="width:50%;"><a href="#website"<span class="icon-chevron-left"></span><span class="icon-chevron-left"></span> Last Balance: '.$currency->getCurrencyCode($account['currency']).' '.(($account['last_balance'] == 0) ? "0.00" : number_format(($account['last_balance']/100) , 2)).'</a></li>
@@ -267,6 +273,7 @@
                                       <div class="social">
                                           <ul>
                                               <li class="facebook" style="width:33%;" data-toggle="tooltip" title="add a new transaction"><a href="#" data-toggle="modal" data-target="#addTransaction" onclick="assignAccountId('.$account['account_id'].')"><span class="icon-plus"></span></a></li>
+
                                               <li class="twitter" style="width:34%;" data-toggle="tooltip" title="remove account"><a href="index?remove='.$account['account_id'].'" onclick="return confirm(\'Are you sure, you want to delete this account and all its transactions?\nThis action cannot be undone\')"><span class="icon-minus"></span></a></li>
                                               <li class="google-plus" style="width:33%;" data-toggle="tooltip" title="show all transactions"><a href="transaction?show='.$account['account_id'].'"><span class="icon-list"></span></a></li>
                                           </ul>
@@ -343,6 +350,52 @@
     </div>
 
 
+<!-- add new budget modal -->
+<div class="modal fade" id="addBudget" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="myModalLabel">Create a new Budget</h4>
+            </div>
+
+            <div class="modal-body">
+                <form class="form-horizontal" role="form" method="post" action="index">
+                    <input name="budgetAccount" id="budgetAccount" value="" type="hidden" />
+                    <div class="form-group">
+                        <label for="inputEmail3" class="col-sm-2 control-label">Budget Name</label>
+                        <div class="col-sm-6">
+                            <input type="text" name="bud_name"  class="form-control" id="inputEmail3" placeholder="Budget Name">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputEmail3" class="col-sm-2 control-label">Max Expenditure Amount</label>
+                        <div class="col-sm-6">
+                            <input type="text" name="bud_max" class="form-control" id="inputEmail3" placeholder="Max Spending Amount">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inputEmail3" class="col-sm-2 control-label">Budget Description</label>
+                        <div class="col-sm-6">
+                            <textarea name="bud_desc" class="form-control" id="inputEmail3" placeholder="Budget Description"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <button type="submit" class="btn btn-primary btn-lg">Create Budget</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <!-- new transaction modal -->
 <div class="modal fade" id="addTransaction" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -372,6 +425,24 @@
                             <select class="form-control" name="types">
                                 <option value="DEBIT">DEBIT</option>
                                 <option value="CREDIT">CREDIT</option>
+                            </select>
+
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputEmail3" class="col-sm-2 control-label">Budget</label>
+                        <div class="col-sm-6">
+                            <select class="form-control" name="budget">
+                                <option value="account">Default Account</option>
+                                <?php
+                                    if(isset($budgets))
+                                    {
+                                        foreach($budgets as $budget)
+                                        {
+                                            echo '<option value="'.$budget['budget_id'].'">'.$budget['budget_name'].'</option>';
+                                        }
+                                    }
+                                ?>
                             </select>
 
                         </div>
@@ -453,6 +524,8 @@
 </script>
 <script>function assignAccountId(value) {
         document.getElementById('accountIdTrx').value = value;
+        document.getElementById('budgetAccount').value = value;
     }</script>
+
   </body>
 </html>

@@ -85,6 +85,7 @@
         <th>Transaction Name</th>
         <th>Amount</th>
         <th>Transaction Date</th>
+        <th>group</th>
         <th>Type</th>
         <th class='actions'>
 
@@ -96,12 +97,13 @@
     <?php
     foreach ($transactions as $transaction) {
         echo
-            '<tr class="' . (($transaction['transaction_type'] == 'CREDIT') ? 'success' : 'danger') . '">
+            '<tr class="' . (($transaction['transaction_category'] == 'CREDIT') ? 'success' : 'danger') . '">
         <td><b><i>' . $transaction['transaction_id'] . '</i></b></td>
         <td><b>' . $transaction['transaction_name'] . '</b></td>
         <td><b>' . $currency . number_format(($transaction['transaction_amount'] / 100), 2) . '</b></td>
         <td><b>' . $transaction['transaction_date'] . '</b></td>
         <td><b>' . $transaction['transaction_type'] . '</b></td>
+        <td><b>' . $transaction['transaction_category'] . '</b></td>
         <td class="action">
             <a class="btn btn-danger" href="#">
                 <i class="icon-trash">

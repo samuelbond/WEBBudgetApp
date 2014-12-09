@@ -2,8 +2,8 @@
 /**
  * Created by PhpStorm.
  * User: samuel
- * Date: 14/11/14
- * Time: 16:27
+ * Date: 08/12/14
+ * Time: 17:24
  */
 
 namespace controller;
@@ -11,7 +11,7 @@ namespace controller;
 
 use application\BaseController;
 
-class transactionController extends BaseController{
+class budgetController extends BaseController{
 
     use TransactionHelper;
 
@@ -28,36 +28,27 @@ class transactionController extends BaseController{
             $accountId = null;
             $currentPage = ((isset($_GET['page'])) ? $_GET['page'] : 1);
 
-            if(isset($_POST['account']) && isset($_POST['trx_name']))
+            if(isset($_POST['budgetAccount']) && isset($_POST['bud_name']))
             {
                 $budgetComp = $this->getNewBudgetComponent();
+                $userId = $_SESSION['userId'];
+                $accountId = $_POST['budgetAccount'];
+                $budgetName = $_POST['trx_name'];
+                $budgetAmountMax = "".($_POST['bud_max']*100)."";
+                $budgetDescription = $_POST['bud_desc'];
 
-                $accountId = $_POST['account'];
-                $transactionName = $_POST['trx_name'];
-                $transactionAmount = "".($_POST['trx_amount']*100)."";
-                $transactionType = $_POST['types'];
-                $transactionDate = $_POST['trx_date'];
-                $transactionMainType = $_POST['budget'];
 
-                if($transactionMainType !== "account")
-                {
-                    $response = $budgetComp->addNewTransaction($_SESSION['userId'],$accountId, $transactionName, $transactionAmount, $transactionType, $transactionDate, $transactionMainType);
-                }
-                else
-                {
-                    $response = $budgetComp->addNewTransaction($_SESSION['userId'],$accountId, $transactionName, $transactionAmount, $transactionType, $transactionDate);
-                }
-
+                $response = $budgetComp->createNewBudget($accountId, $userId, $budgetName, $budgetDescription, $budgetAmountMax);
 
                 if(isset($response['status']))
                 {
                     if($response['status'] == "success")
                     {
-                        $this->registry->template->success = "Transaction added successfully!";
+                        $this->registry->template->success = "New Budget created successfully!";
                     }
                     else
                     {
-                        $this->registry->template->error = "Could not add transaction !";
+                        $this->registry->template->error = "Could not new budget !";
                     }
                 }
                 else
@@ -100,34 +91,28 @@ class transactionController extends BaseController{
                         $this->registry->template->lastBalance = number_format(($transactions['last_balance']/100), 2);
                         $this->registry->template->currency = $this->getCurrencyCode($transactions['currency']);
                         if(!isset($_POST['trx_name']))
-                        $this->registry->template->info = ((isset($transactions['list'])) ? count($transactions['list'])." transactions were loaded successfully" : "There are no transactions yet in this account");
+                            $this->registry->template->info = ((isset($transactions['list'])) ? count($transactions['list'])." transactions were loaded successfully" : "There are no transactions yet in this account");
                     }
                     else
                     {
                         if(!isset($_POST['trx_name']))
-                        $this->registry->template->error = "Could not load transactions for the account provided";
+                            $this->registry->template->error = "Could not load transactions for the account provided";
                     }
                 }
                 else
                 {
                     if(!isset($_POST['trx_name']))
-                    $this->registry->template->error = "Internal error, could not load transactions";
+                        $this->registry->template->error = "Internal error, could not load transactions";
                 }
             }
             else
             {
                 if(!isset($_POST['trx_name']))
-                $this->registry->template->error = "Invalid action, trying to initiate an invalid action";
+                    $this->registry->template->error = "Invalid action, trying to initiate an invalid action";
             }
             $this->registry->template->loadView("transactions");
         }
         else
             $this->registry->template->loadView("index");
     }
-
-
-
-
-
-
 } 

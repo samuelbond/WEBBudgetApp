@@ -26,6 +26,12 @@ class indexController extends BaseController{
             $email = $_POST['email'];
             $passowrd = $_POST['password'];
             $response = $budgetComp->loginUser( $email, $passowrd);
+            if(!isset($response['status']))
+            {
+                $this->registry->template->error = "Service is not available";
+                $this->registry->template->loadView("index");
+                return;
+            }
 
             if($response['status'] == "success")
             {
@@ -141,6 +147,46 @@ class indexController extends BaseController{
                 else
                 {
                     $this->registry->template->erroralert = "An error has occurred, couldn't remove account";
+                }
+            }
+
+            if(isset($_POST['budgetAccount']) && isset($_POST['bud_name']))
+            {
+                $budgetComp = $this->getNewBudgetComponent();
+                $userId = $_SESSION['userId'];
+                $accountId = $_POST['budgetAccount'];
+                $budgetName = $_POST['bud_name'];
+                $budgetAmountMax = "".($_POST['bud_max']*100)."";
+                $budgetDescription = $_POST['bud_desc'];
+
+
+                $response = $budgetComp->createNewBudget($accountId, $userId, $budgetName, $budgetDescription, $budgetAmountMax);
+
+                if(isset($response['status']))
+                {
+                    if($response['status'] == "success")
+                    {
+                        $this->registry->template->success = "New Budget created successfully!";
+                    }
+                    else
+                    {
+                        $this->registry->template->erroralert = "Could not create new budget! ".$response['error'];
+                    }
+                }
+                else
+                {
+                    $this->registry->template->erroralert = "Internal error, action failed please try again later";
+                }
+
+            }
+            $budgetComp = $this->getNewBudgetComponent();
+            $budgets = $budgetComp->getAllUserBudget($_SESSION['userId']);
+
+            if(is_array($budgets) && sizeof($budgets) > 0)
+            {
+                if($budgets['status'] == "success" && isset($budgets['list']))
+                {
+                    $this->registry->template->budgets = $budgets['list'];
                 }
             }
 

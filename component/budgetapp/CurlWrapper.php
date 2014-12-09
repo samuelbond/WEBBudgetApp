@@ -39,6 +39,7 @@ class CurlWrapper {
 
     public function Post($url, array $data, $dataType = "JSON")
     {
+
         curl_setopt($this->curl,CURLOPT_URL,$url);
         curl_setopt($this->curl, CURLOPT_POST, true);
 
@@ -63,6 +64,7 @@ class CurlWrapper {
     {
         $this->error = false;
         $output =  curl_exec($curl);
+
         if($output === false)
         {
             $this->error = true;
