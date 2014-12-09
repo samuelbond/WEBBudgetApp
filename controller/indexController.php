@@ -186,6 +186,25 @@ class indexController extends BaseController{
             {
                 if($budgets['status'] == "success" && isset($budgets['list']))
                 {
+                    $sum = function($budgetList){
+                        $sums = array();
+                        foreach($budgetList as $budget)
+                        {
+                            $result = $this->getNewBudgetComponent()->getBudgetTransactionSum($_SESSION['userId'], $budget['budget_id']);
+                            if(isset($result['status']) && $result['status'] == "success")
+                            {
+                                $sums[$budget['budget_id']] = $result['sum'];
+                            }
+                            else
+                            {
+                                $sums[$budget['budget_id']] = 5;
+                            }
+                        }
+
+                        return $sums;
+                    };
+                    $budgetSum = $sum($budgets['list']);
+                    $this->registry->template->budgetSpent = $budgetSum;
                     $this->registry->template->budgets = $budgets['list'];
                 }
             }

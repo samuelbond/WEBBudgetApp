@@ -128,25 +128,21 @@
         </ul>
         <div id='toolbar'>
             <div class='btn-group'>
-                <a class='btn' data-toggle='toolbar-tooltip' href='#' title='Building'>
-                    <i class='icon-building'></i>
+                <a class='btn' data-toggle="modal" data-target="#showBudget"  href='#' title='Budget'>
+                    <i class='icon-building' data-toggle='toolbar-tooltip'></i>
                 </a>
+                <!--
                 <a class='btn' data-toggle='toolbar-tooltip' href='#' title='Laptop'>
                     <i class='icon-laptop'></i>
                 </a>
-                <a class='btn' data-toggle='toolbar-tooltip' href='#' title='Calendar'>
-                    <i class='icon-calendar'></i>
-                    <span class='badge'>3</span>
+                <a class='btn'    href='#' title='Calendar'>
+                    <i class='icon-calendar' data-toggle='toolbar-tooltip'></i>
                 </a>
-                <a class='btn' data-toggle='toolbar-tooltip' href='#' title='Lemon'>
-                    <i class='icon-lemon'></i>
+                <a class='btn' href='#' title='Lemon'>
+                    <i data-toggle='toolbar-tooltip'  class='icon-lemon'></i>
                 </a>
+                -->
             </div>
-            <div class='label label-danger'>
-                Danger
-            </div>
-            <div class='label label-info'>
-                Info
-            </div>
+
         </div>
     </section>

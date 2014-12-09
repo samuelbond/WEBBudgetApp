@@ -53,6 +53,17 @@ class BudgetApp extends \component\budgetapp\BudgetApp{
         );
     }
 
+    public function getBudgetTransactionSum($userId, $budgetId)
+    {
+        $this->currentLink = $this->apiRootLink."accounts/transaction/budget";
+        return $this->curlWrapper->Post($this->currentLink,
+                array(
+                "budget_id" => $budgetId,
+                "user_id" => $userId
+                )
+        );
+    }
+
 
     public function addNewTransaction($userId, $accountId, $transactionName, $transactionAmount, $transactionType, $transactionDate, $budget = null)
     {

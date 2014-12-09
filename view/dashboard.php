@@ -350,6 +350,60 @@
     </div>
 
 
+<!-- show budgets -->
+<div class="modal fade" id="showBudget" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="myModalLabel">All Budget</h4>
+            </div>
+            <div class="modal-body">
+                <table class='table'>
+                    <thead>
+                    <tr>
+                        <th>Budget Name</th>
+                        <th>Budget Description</th>
+                        <th>Max Amount</th>
+                        <th>Account</th>
+                        <th>Current Status</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <?php
+                    if(isset($budgets))
+                    {
+                        foreach($budgets as $budget)
+                        {
+                            echo '
+                        <tr class="' . (($budget['budget_max'] > $budgetSpent['budget_id']) ? 'success' : 'danger') . '">
+                            <td>'.$budget['budget_name'].'</td>
+                            <td>'.$budget['budget_description'].'</td>
+                            <td>'.$budget['budget_max'].'</td>
+                            <td>'.$budget['account_name'].'</td>
+                            <td>'.(($budget['budget_max'] < $budgetSpent['budget_id']) ? "<i class='danger'>Exceeded max spend limit</i>" : "Under the limit").'</td>
+                            <td class="action">
+            <a class="btn btn-danger" href="#">
+                <i class="icon-check">
+                </i>
+            </a>
+        </td>
+                        </tr>';
+                        }
+                    }
+                    ?>
+
+                    </tbody>
+                    </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <!-- add new budget modal -->
 <div class="modal fade" id="addBudget" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
